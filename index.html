@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tetris</title>
+  <link href="https://fonts.cdnfonts.com/css/tetris" rel="stylesheet">
+  <link rel="stylesheet" href="src/styles.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Tetris</h1>
+    <div class="header">
+      <p>Level: <span id="level">1</span></p>
+      <p>Score: <span id="score">0</span></p>
+    </div>
+    <div class="gameZone">
+      <div>
+        <span id="gameOver">GAME OVER!!</span>
+        <button class="button" id="startTetris">Start</button>
+      </div>
+      <canvas id="tetrisCanvas"></canvas>
+    </div>
+    <div id="nextTetromino">
+      <p>Next</p>
+      <canvas id="nextTetrominoCanvas"></canvas>
+    </div>
+  </div>
+  <script type="module" src="src/tetrisCanvas.js"></script>
+  <script type="module" src="src/nextCanvas.js"></script>
+  <script type="module" src="src/index.js"></script>
+</body>
+</html>
