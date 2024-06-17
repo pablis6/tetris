@@ -26,6 +26,7 @@ body {
   justify-content: space-between;
   align-items: center;
   font-size: 2rem;
+  margin-bottom: 2rem;
 }
 
 p {
@@ -103,4 +104,114 @@ canvas#tetrisCanvas {
 #nextTetrominoCanvas{
   display: flex;
   margin: auto;
+}
+
+
+@media (max-width: 768px) {
+  .container {
+    padding: 20px 50px;
+  }
+  .container h1 {
+    font-size: 40px;
+  }
+  .header p {
+    padding: 0.5rem;
+    font-size: 1.5rem;
+  }
+  .button {
+    padding: 10px 15px;
+    font-size: 1.5rem;
+  }
+  canvas#tetrisCanvas {
+    left: 0;
+    transform: translateX(50px);
+  }
+  #nextTetromino {
+    padding: 1rem 0.5rem;
+    font-size: 1.5rem;
+  }
+  #nextTetromino p {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 620px) {
+  .container {
+    padding: 20px 30px;
+  }
+  .container h1 {
+    font-size: 30px;
+  }
+  .container .header {
+    flex-direction: column;
+    align-items: unset;
+    margin-bottom: 0rem;
+  }
+  .header p {
+    padding: 0.5rem;
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    margin-top: 0;
+  }
+  .button {
+    padding: 10px 10px;
+    font-size: 1.2rem;
+  }
+  canvas#tetrisCanvas {
+    left: 0;
+    transform: translateX(30px);
+    width: 200px;
+  }
+
+  #nextTetromino {
+    min-width: 8rem;
+    margin-top: 0px;
+  }
+  canvas#nextTetrominoCanvas {
+    width: 100px;
+  }
+}
+
+@media (max-width: 420px) {
+  .container {
+    padding: 20px 20px;
+  }
+  .container h1 {
+    margin-top: 0px;
+    font-size: 20px;
+  }
+  .header p {
+    padding: 0.5rem;
+    font-size: 1rem;
+  }
+  .button {
+    padding: 10px 10px;
+    font-size: 1rem;
+  }
+  canvas#tetrisCanvas {
+    transform: translateX(20px);    
+  }
+  #nextTetromino {
+    min-width: 4rem;
+    margin-top: 0px;
+    padding: 0.5rem;
+  }
+  canvas#nextTetrominoCanvas {
+    width: 80px;
+  }
+  #nextTetromino p {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 350px) {
+  canvas#tetrisCanvas {
+    left: 50%;
+    transform: translateX(-50%);
+    width: 200px;
+  }
+
+  #nextTetromino {
+    display: none !important;
+  } 
 }
