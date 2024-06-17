@@ -268,11 +268,13 @@ let touchEndX = 0;
 let touchEndY = 0;
 
 canvasTetris.addEventListener('touchstart', function(e) {
+    e.preventDefault(); // Evita el comportamiento predeterminado del navegador
     touchStartX = e.touches[0].clientX;
     touchStartY = e.touches[0].clientY;
 }, false);
 
 canvasTetris.addEventListener('touchend', function(e) {
+    e.preventDefault(); // Evita el comportamiento predeterminado del navegador
     touchEndX = e.changedTouches[0].clientX;
     touchEndY = e.changedTouches[0].clientY;
 
