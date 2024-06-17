@@ -157,6 +157,9 @@ function addPoints(row = 0) {
 
 }
 
+/**
+ * Fusiona la pieza actual con la cuadrícula del juego.
+ */
 function merge() {
     piece.shape.forEach((row, y) => {
         row.forEach((value, x) => {
@@ -175,9 +178,9 @@ function merge() {
 }
 
 /**
- * Fusiona la pieza actual con la cuadrícula del juego.
+ * Mueve la pieza hacia abajo.
  */
-function goDown() {
+function moveDown() {
     piece.y++;
     if(collide()) {
         piece.y--;
@@ -191,6 +194,45 @@ function goDown() {
 }
 
 /**
+ * Mueve la pieza hacia la izquierda
+ */
+function moveLeft() {
+    piece.x--;
+    if (collide()) {
+        piece.x++;
+    }
+    drawBoard(board);
+    drawPiece(piece);
+}
+
+/**
+ * Mueve la pieza hacia la derecha
+ */
+function moveRight() {
+    piece.x++;
+    if (collide()) {
+        piece.x--;
+    }
+    drawBoard(board);
+    drawPiece(piece);
+}
+
+/**
+ * Gira la pieza actual
+ */
+function rotate() {
+    const shape = piece.shape;
+    const N = shape.length - 1;
+    const result = shape.map((row, i) => row.map((val, j) => shape[N - j][i]));
+    piece.shape = result;
+    if (collide()) {
+        piece.shape = shape;
+    }
+    drawBoard(board);
+    drawPiece(piece);
+}
+
+/**
  * Actualiza el estado del juego.
  * @param {number} time - Tiempo actual.
  */
@@ -201,43 +243,61 @@ function update(time = 0) {
     if (dropCounter > dropInterval) {
         dropCounter = 0;
         // Mover la pieza hacia abajo
-        goDown();
+        moveDown();
     }
     requestAnimationFrame(update);
 }
 
+//escuchar eventos de touch
+// canvasTetris.addEventListener('touchmove', event => {
+//     console.log(event)
+//     if (event.touches[0].clientX < 100) {
+//         moveLeft();
+//     } else if (event.touches[0].clientX > 100) {
+//         moveRight();
+//     } else if (event.touches[0].clientY > 100) {
+//         moveDown();
+//     } else if (event.touches[0].clientY < 100) {
+//         rotate();
+//     }
+// });
+
+let touchStartX = 0;
+let touchStartY = 0;
+let touchEndX = 0;
+let touchEndY = 0;
+
+canvasTetris.addEventListener('touchstart', function(e) {
+    touchStartX = e.touches[0].clientX;
+    touchStartY = e.touches[0].clientY;
+}, false);
+
+canvasTetris.addEventListener('touchend', function(e) {
+    touchEndX = e.changedTouches[0].clientX;
+    touchEndY = e.changedTouches[0].clientY;
+
+    // Detectar deslizamiento hacia la izquierda
+    if (touchStartX - touchEndX > 20) {
+        moveLeft();
+    } else if (touchEndX - touchStartX > 20) {
+        moveRight();
+    } else if (touchEndX === touchStartX || touchEndY < touchStartY) {
+        rotate();
+    } else {
+        moveDown();
+    }
+}, false);
+            
 //escuchar eventos de teclado
 document.addEventListener('keydown', event => {
     if (event.key === 'ArrowLeft') {
-        // Mover la pieza hacia la izquierda
-        piece.x--;
-        if (collide()) {
-            piece.x++;
-        }
-        drawBoard(board);
-        drawPiece(piece);
+        moveLeft();
     } else if (event.key === 'ArrowRight') {
-        // Mover la pieza hacia la derecha
-        piece.x++;
-        if (collide()) {
-            piece.x--;
-        }
-        drawBoard(board);
-        drawPiece(piece);
+        moveRight();
     } else if (event.key === 'ArrowDown') {
-        // Mover la pieza hacia abajo
-        goDown();
+        moveDown();
     } else if (event.key === 'ArrowUp') {
-        // Girar la pieza
-        const shape = piece.shape;
-        const N = shape.length - 1;
-        const result = shape.map((row, i) => row.map((val, j) => shape[N - j][i]));
-        piece.shape = result;
-        if (collide()) {
-            piece.shape = shape;
-        }
-        drawBoard(board);
-        drawPiece(piece);
+        rotate();        
     }
 });
 
